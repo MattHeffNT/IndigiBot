@@ -56,7 +56,10 @@ if __name__ == '__main__':
                 user=tweet.retweeted_status.author.screen_name
                 url=tweet.retweeted_status.entities['urls']
 
-                # loop through url dictionary until we get the expanded url value then store this in the link variable.
+                # loop through url dictionary until we get the expanded url value then store this in the link variable. Then replace
+                # the text with generic twitter url so that it appears as media in the bot's feed. (tweepy doesn't have quote tweet
+                # functionality just yet
+                
                 for urls in url:
                         link=urls['expanded_url']
                         link=link.replace("https://twitter.com/i/web/status/","https://twitter.com/user/status/")
