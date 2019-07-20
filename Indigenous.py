@@ -72,5 +72,5 @@ if __name__ == '__main__':
 
                                 api.update_status ("@"+user+" should you be using a capital I for Indigenous? #uppercaseBlacks https://t.co/3G7C7l7y4X "+ link)
                                 store_last_id(link)              
-
+print ("done")
         
