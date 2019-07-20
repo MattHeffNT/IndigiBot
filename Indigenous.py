@@ -45,7 +45,7 @@ if __name__ == '__main__':
          # will also consider adding further context analysis and or machine learning capabilities   
         
         str1= "indigenous"
-        str2= "https://twitter.com/i/web/status/"
+        str2= "https://twitter.com/user/status/"
         lastid= get_last_id()
 
         #if the tweet object has the retweeted_status attribute and isn't a reply to someone (can change this second condition later if we like) then store username in 
