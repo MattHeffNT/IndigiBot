@@ -59,6 +59,7 @@ if __name__ == '__main__':
                 # loop through url dictionary until we get the expanded url value then store this in the link variable.
                 for urls in url:
                         link=urls['expanded_url']
+                        link=link.replace("https://twitter.com/i/web/status/","https://twitter.com/user/status/")
 
                 # double check bot hasn't already tweeted the current post in memory also double check that "link" is correct url type
                         if link not in lastid and str2 in link:
