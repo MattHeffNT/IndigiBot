@@ -49,7 +49,8 @@ if __name__ == '__main__':
         lastid= get_last_id()
 
         #if the tweet object has the retweeted_status attribute and isn't a reply to someone (can change this second condition later if we like) then store username in 
-        # variable "user" and the dictionary that's in a list that's in a tuple inside the "url" variable.
+        #variable "user" and the dictionary that's in a list that's in a tuple inside the "url" variable.
+        #and last condition check if the word indigenous lowercase (str1) is in the twitter post
 
         if hasattr(tweet,'retweeted_status') and tweet.in_reply_to_screen_name==None and str1 in (f'{tweet.text}'):
                 user=tweet.retweeted_status.author.screen_name
@@ -59,9 +60,7 @@ if __name__ == '__main__':
                 for urls in url:
                         link=urls['expanded_url']
 
-        
-        #if statement "if the word indigenous in the twitter post and bot hasn't already tweeted then execute nested if statement
-
+                # double check bot hasn't already tweeted the current post in memory also double check that "link" is correct url type
                         if link not in lastid and str2 in link:
                 
                 #tweet the person with our message then store the tweet id
