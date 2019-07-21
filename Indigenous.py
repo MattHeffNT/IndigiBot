@@ -41,16 +41,17 @@ if __name__ == '__main__':
 
     for tweet in tweepy.Cursor(api.search, q="indigenous", since_id=last_id).items(150):
 
-         #str1 variable is literally just looking for lowercase indigenous in twitter searches, can add complexity here (i.e. lowercase aboriginal etc)
-         # will also consider adding further context analysis and or machine learning capabilities   
+         #str1 variable stores indigenous as a string variable so we can use it in twitter searches, 
+         # can add complexity here later (i.e. lowercase aboriginal, add dictionaries of terms to iterate through searches  etc)
+         # will also consider adding further context analysis and or machine learning capabilities (dictionary values of sentences or
+         # adjective and noun pairs we want to exclude. Str2 is variable to check if links we will extract later are correct. 
         
         str1= "indigenous"
         str2= "https://twitter.com/user/status/"
-        lastid= get_last_id()
 
         #if the tweet object has the retweeted_status attribute and isn't a reply to someone (can change this second condition later if we like) then store username in 
         #variable "user" and the dictionary that's in a list that's in a tuple inside the "url" variable.
-        #and last condition check if the word indigenous lowercase (str1) is in the twitter post
+        #and last condition checks if the word indigenous lowercase (str1) is in the twitter post
 
         if hasattr(tweet,'retweeted_status') and tweet.in_reply_to_screen_name==None and str1 in (f'{tweet.text}'):
                 user=tweet.retweeted_status.author.screen_name
