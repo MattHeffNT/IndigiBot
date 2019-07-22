@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     for tweet in tweepy.Cursor(api.search, q="indigenous", since_id=last_id).items(400):
 
-         #str1 variable is literally just looking for lowercase indigenous in twitter searches, can add complexity here (i.e. lowercase aboriginal etc)
+         #str1 variable is looking for lowercase indigenous in twitter searches, can add complexity here (i.e. lowercase aboriginal etc)
          # will also consider adding further context analysis and or machine learning capabilities   
         
         str1= "indigenous"
@@ -49,19 +49,19 @@ if __name__ == '__main__':
 
         # Some context to try and minimize false positives.
 
-  
-
         context_dictionary={" plants"," animals"," species"," herbs"," fruits"," birds"," mammals"," fish"," to"," space technology"," space programme"}
 
         for i in context_dictionary:
 
                 acceptable= str1+i
-        
-                #if the tweet object has the retweeted_status attribute and isn't a reply to someone (can change this second condition later if we like) then store username in 
-                # variable "user" and the dictionary that's in a list that's in a tuple inside the "url" variable.
-                if acceptable and "Chandrayaan" in (f'{tweet.text}') :
+                
+                #if any of the different contexts are in the tweet or the name of the Indian spacecraft then ignore the tweet
+                
+                if acceptable and "Chandrayaan" or "chandrayaan" in (f'{tweet.text}') :
                         break
 
+                #if the tweet object has the retweeted_status attribute and isn't a reply to someone (can change this second condition later if we like) then store username in 
+                # variable "user" and the dictionary that's in a list that's in a tuple inside the "url" variable.
 
                 elif hasattr(tweet,'retweeted_status') and tweet.in_reply_to_screen_name==None and str1 in (f'{tweet.text}'):
                         user=tweet.retweeted_status.author.screen_name
@@ -76,6 +76,7 @@ if __name__ == '__main__':
 
                         str2= "https://twitter.com/user/status/"
 
+                       # double check that this tweet link hasn't already been tweeted @. As well make sure url type is correct.                    
 
                         if link not in lastid and str2 in link:
                                 
@@ -92,14 +93,14 @@ if __name__ == '__main__':
 
                                 continue
 
-                #new parameter to capture more tweets..same as above except for not RT tweets
+                #new parameter to capture more tweets..same as above except for non RT tweets
 
                 elif hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and str1 in (f'{tweet.text}'):
                         link= "https://twitter.com/user/status/"+tweet.id_str
                         user= tweet.user.screen_name
 
                        
-        #if statement "if the word indigenous in the twitter post and bot hasn't already tweeted then execute nested if statement
+        #if statement "if the word indigenous in the twitter post and bot hasn't already tweeted then execute rest of code
 
                         str2= "https://twitter.com/user/status/"                
 
@@ -118,6 +119,8 @@ if __name__ == '__main__':
 
                         else:
                                 continue
+
+#print done when code has finished running and send a phone push notification.
 
 print ("done")
 notify.send('IndigiBot has finished running')
