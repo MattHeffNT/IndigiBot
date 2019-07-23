@@ -12,12 +12,9 @@ ACCESS_TOKEN_SECRET = 'x'
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
-#assign variable "notify" to Notify module
-notify = Notify()
-
 # Create API object
 api = tweepy.API(auth)
-
+notify = Notify()
 
 #################### static twitter search  way ######################
 
@@ -41,30 +38,29 @@ if __name__ == '__main__':
         print("No retweet yet")
         last_id = None
 
-    for tweet in tweepy.Cursor(api.search, q="indigenous", since_id=last_id).items(400):
+    for tweet in tweepy.Cursor(api.search, q="indigenous", since_id=last_id).items(250):
 
-         #str1 variable is looking for lowercase indigenous in twitter searches, can add complexity here (i.e. lowercase aboriginal etc)
-         # will also consider adding further context analysis and or machine learning capabilities   
-        
+         #str1 variable is literally just looking for lowercase indigenous in twitter searches, can add complexity here (i.e. lowercase aboriginal etc)
+         # will also consider adding further context analysis and or machine learning capabilities
+
         str1= "indigenous"
 
         lastid= get_last_id()
 
         # Some context to try and minimize false positives.
 
+
         context_dictionary={" plants"," animals"," species"," herbs"," fruits"," birds"," mammals"," fish"," to"," space technology"," space programme"}
 
         for i in context_dictionary:
 
                 acceptable= str1+i
-                
-                #if any of the different contexts are in the tweet or the name of the Indian spacecraft then ignore the tweet
-                
-                if acceptable and "Chandrayaan" or "chandrayaan" in (f'{tweet.text}') :
+
+                #if the tweet object has the retweeted_status attribute and isn't a reply to someone (can change this second condition later if we like) then store username in
+                # variable "user" and the dictionary that's in a list that's in a tuple inside the "url" variable.
+                if acceptable in (f'{tweet.text}')  or "chandrayaan" in (f'{tweet.text}') or "Chandrayaan" in (f'{tweet.text}') or "ISRO" in (f'{tweet.text}') :
                         break
 
-                #if the tweet object has the retweeted_status attribute and isn't a reply to someone (can change this second condition later if we like) then store username in 
-                # variable "user" and the dictionary that's in a list that's in a tuple inside the "url" variable.
 
                 elif hasattr(tweet,'retweeted_status') and tweet.in_reply_to_screen_name==None and str1 in (f'{tweet.text}'):
                         user=tweet.retweeted_status.author.screen_name
@@ -79,10 +75,9 @@ if __name__ == '__main__':
 
                         str2= "https://twitter.com/user/status/"
 
-                       # double check that this tweet link hasn't already been tweeted @. As well make sure url type is correct.                    
 
                         if link not in lastid and str2 in link:
-                                
+
                 #tweet the person with our message then store the tweet id
                 # to make sure we aren't duplicating tweets.
 
@@ -91,24 +86,24 @@ if __name__ == '__main__':
                                 # print ("with RT status")
                                 store_last_id(link)
                                 break
-                                
+
                         else:
 
                                 continue
 
-                #new parameter to capture more tweets..same as above except for non RT tweets
+                #new parameter to capture more tweets..same as above except for not RT tweets
 
                 elif hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and str1 in (f'{tweet.text}'):
                         link= "https://twitter.com/user/status/"+tweet.id_str
                         user= tweet.user.screen_name
 
-                       
-        #if statement "if the word indigenous in the twitter post and bot hasn't already tweeted then execute rest of code
 
-                        str2= "https://twitter.com/user/status/"                
+        #if statement "if the word indigenous in the twitter post and bot hasn't already tweeted then execute nested if statement
+
+                        str2= "https://twitter.com/user/status/"
 
                         if link not in lastid and str2 in link:
-                        
+
 
                 #tweet the person with our message then store the tweet id
                 # to make sure we aren't duplicating tweets.
@@ -118,12 +113,11 @@ if __name__ == '__main__':
                                 # print ("without RT status")
                                 store_last_id(link)
                                 break
-                                
+
 
                         else:
                                 continue
 
-#print done when code has finished running and send a phone push notification.
-
 print ("done")
 notify.send('IndigiBot has finished running')
+
