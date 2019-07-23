@@ -12,9 +12,12 @@ ACCESS_TOKEN_SECRET = 'x'
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
+#assign variable "notify" to Notify module
+notify = Notify()
+
 # Create API object
 api = tweepy.API(auth)
-notify = Notify()
+
 
 #################### static twitter search  way ######################
 
