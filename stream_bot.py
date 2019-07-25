@@ -51,36 +51,7 @@ class MyStreamListener(tweepy.StreamListener):
                         break
 
 
-                elif hasattr(tweet,'retweeted_status') and tweet.in_reply_to_screen_name==None and str1 in (f'{tweet.text}'):
-                        user=tweet.retweeted_status.author.screen_name
-                        url=tweet.retweeted_status.entities['urls']
-
-                        # loop through url dictionary until we get the expanded url value then store this in the link variable.
-
-                        for urls in url:
-                                global link
-                                link = urls['expanded_url']
-                                link=link.replace("https://twitter.com/i/web/status/","https://twitter.com/user/status/")
-
-                        str2= "https://twitter.com/user/status/"
-
-
-                        if link not in lastid and str2 in link:
-
-                #tweet the person with our message then store the tweet id
-                # to make sure we aren't duplicating tweets.
-
-                                #api.update_status ("@"+user+" should you be using a capital I for Indigenous? #uppercaseBlacks https://t.co/3G7C7l7y4X  "+ link)
-                                print ("@"+user+" should you be using a capital I for Indigenous? #uppercaseBlacks https://t.co/3G7C7l7y4X  "+ link)
-                                print ("with RT status")
-                                store_last_id(link)
-                                break
-
-                        else:
-
-                                continue
-
-                #new parameter to capture more tweets..same as above except for not RT tweets
+                #we don't want to capture retweeted tweets for live streamed.
 
                 elif hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and str1 in (f'{tweet.text}'):
                         link= "https://twitter.com/user/status/"+tweet.id_str
@@ -97,8 +68,9 @@ class MyStreamListener(tweepy.StreamListener):
                 # to make sure we aren't duplicating tweets.
 
                                 #api.update_status ("@"+user+" should you be using a capital I for Indigenous? #uppercaseBlacks https://t.co/3G7C7l7y4X  "+ link)
+
                                 print ("@"+user+" should you be using a capital I for Indigenous? #uppercaseBlacks https://t.co/3G7C7l7y4X  "+ link)
-                                print ("without RT status")
+                                # print ("without RT status")
                                 store_last_id(link)
                                 break
 
@@ -118,6 +90,7 @@ myStreamListener = MyStreamListener()
 myStream = tweepy.Stream(auth = api.auth, listener=myStreamListener)
 
 myStream.filter(track=[str1],is_async=True)
+
 
 
 
