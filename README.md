@@ -8,6 +8,5 @@ https://developer.twitter.com/en/developer-terms/agreement-and-policy.html
 
 TO Dos:
 
-- add file feature that deletes ids older than 7 days.
-- build and compare streaming functionality.
-- Improve scheduling functionality.
+- better collocation filtering
+- proper noun of Aboriginal
