@@ -46,13 +46,11 @@ class MyStreamListener(tweepy.StreamListener):
 
         collocations= {"chandrayaan","Chandrayaan","ISRO","miners kill", "Brazil murder", "indigenously", "indigenous to","indigenous red grape","indigenous grape","Amazon gold miners","indigenous/native plants","indigenous cows","Brazil miners"}
 
+        #loops to check both collocations and just general strings
 
         for i in context_dictionary:
 
                 acceptable= str1+i
-
-                #if the tweet object has the retweeted_status attribute and isn't a reply to someone (can change this second condition later if we like) then store username in
-                # variable "user" and the dictionary that's in a list that's in a tuple inside the "url" variable.
 
 
         for i in collocations:
@@ -62,8 +60,9 @@ class MyStreamListener(tweepy.StreamListener):
                     noTweet= i
 
 
-                #we don't want to capture retweeted tweets for live streamed.
-
+                #if the tweet object has the retweeted_status attribute and isn't a reply to someone (can change this second condition later if we like) then store username in
+                # variable "user". Then check if dictionaries above are in the tweet.
+         
         if hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and str1 in tweet.text and acceptable not in tweet.text and noTweet not in tweet.text:
                 link= "https://twitter.com/user/status/"+tweet.id_str
                 tweetID= tweet.id_str
