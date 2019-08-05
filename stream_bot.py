@@ -30,15 +30,21 @@ def store_last_id(tweet_id):
         fp.write(str(tweet_id)+""+'\n')
 
 str1="indigenous"
+bbc="Brazil's indigenous people: Miners kill one in invasion of protected reserve"
+guardian="Brazil's indigenous people, miners"
+
 
 lastid= get_last_id()
 
 class MyStreamListener(tweepy.StreamListener):
 
 
+
     def on_status(self, tweet):
 
-        context_dictionary={" plants"," animals"," reptiles" " species"," herbs"," fruits"," birds"," mammals"," fish"," to", " to "," variety"," flora"," fauna"," British"," Brits"}
+        context_dictionary={" plants"," animals"," reptiles" " species"," herbs"," fruits"," birds"," mammals"," fish"," to", " to "," variety"," flora"," fauna"," British"," Brits","brit","Brit"}
+
+        collocations= {"chandrayaan","Chandrayaan","ISRO","miners kill", "Brazil murder", "indigenously", "indigenous to","indigenous red grape","indigenous grape","Amazon gold miners","indigenous/native plants","indigenous cows","Brazil miners"}
 
 
         for i in context_dictionary:
@@ -48,14 +54,17 @@ class MyStreamListener(tweepy.StreamListener):
                 #if the tweet object has the retweeted_status attribute and isn't a reply to someone (can change this second condition later if we like) then store username in
                 # variable "user" and the dictionary that's in a list that's in a tuple inside the "url" variable.
 
-                if acceptable in tweet.text  or "chandrayaan" in tweet.text or "Chandrayaan" in tweet.text or "ISRO" in tweet.text:
 
-                        break
+        for i in collocations:
+
+            if i in tweet.text:
+
+                    noTweet= i
 
 
                 #we don't want to capture retweeted tweets for live streamed.
 
-        if hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and str1 in tweet.text:
+        if hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and str1 in tweet.text and acceptable not in tweet.text and noTweet not in tweet.text:
                 link= "https://twitter.com/user/status/"+tweet.id_str
                 tweetID= tweet.id_str
                 user= tweet.user.screen_name
