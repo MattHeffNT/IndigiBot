@@ -8,6 +8,7 @@ CONSUMER_SECRET = 'x'
 ACCESS_TOKEN = 'x'
 ACCESS_TOKEN_SECRET = 'x'
 
+
 # Authenticate to Twitter
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
@@ -69,7 +70,7 @@ class MyStreamListener(tweepy.StreamListener):
 
                 #we don't want to capture retweeted tweets for live streamed, this condition also checks for strings in dictionaries above.
 
-        if hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and str1 in tweet.text and acceptable not in tweet.text and noTweet not in tweet.text:
+        if hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and str1 in tweet.text and acceptable not in tweet.text and noTweet =="":
 
                 link= "https://twitter.com/user/status/"+tweet.id_str
                 tweetID= tweet.id_str
@@ -116,11 +117,11 @@ class MyStreamListener(tweepy.StreamListener):
 
 
     def on_error(self, status_code):
-        if status_code == 420 or status_code==185:
+        if status_code == 420 or status_code==185 or status_code==327:
             #returning False in on_error disconnects the stream
             return False
         # returning non-False reconnects the stream, with backoff.
 
 myStreamListener = MyStreamListener()
 myStream = tweepy.Stream(auth = api.auth, listener=myStreamListener,wait_on_rate_limit=True)
-myStream.filter(track=['indigenous,torres straight'],async=True)
+myStream.filter(track=['indigenous,torres straight'],is_async=True)
