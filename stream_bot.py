@@ -91,18 +91,6 @@ class MyStreamListener(tweepy.StreamListener):
                                 store_last_id(link)
 
 
-        # if the tweet has both torres straight and indeigenous then retweet them
-
-        elif hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and str1 in tweet.text and noTweet not in tweet.text and acceptable not in tweet.text and str3.title() in tweet.text or str3 in tweet.text or str3.upper() in tweet.text or str3.capitalize() in tweet.text:
-                link= "https://twitter.com/user/status/"+tweet.id_str
-                tweetID= tweet.id_str
-                str2= "https://twitter.com/user/status/"
-
-                if link not in lastid and str2 in link:
-                                sleep(60)
-                                api.retweet(tweetID)
-                                store_last_id(link)
-
         # if the tweet has torres straight then retweet them
 
         elif hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and str3.title() in tweet.text or str3 in tweet.text or str3.upper() in tweet.text or str3.capitalize() in tweet.text:
