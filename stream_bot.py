@@ -46,7 +46,7 @@ class MyStreamListener(tweepy.StreamListener):
     def on_status(self, tweet):
 
         str1="indigenous"
-        str4="torres straight"
+        str3="torres straight"
         notweet= ""
         acceptable= ""
 
