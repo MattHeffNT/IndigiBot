@@ -31,13 +31,6 @@ def store_last_id(tweet_id):
         fp.write(str(tweet_id)+""+'\n')
 
 
-str1="indigenous"
-str3="torres straight"
-notweet= ""
-acceptable= ""
-
-
-
 lastid= get_last_id()
 
 class MyStreamListener(tweepy.StreamListener):
