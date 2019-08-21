@@ -49,6 +49,7 @@ class MyStreamListener(tweepy.StreamListener):
         if hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and str1 in tweet.text or str1.upper() in tweet.text or str1.title() in tweet.text:
                 link= "https://twitter.com/user/status/"+tweet.id_str
                 tweetID= tweet.id_str
+                user= tweet.user.screen_name
 
         #if statement "if the word Adivasi in the twitter post and bot hasn't already tweeted then execute nested if statement
 
