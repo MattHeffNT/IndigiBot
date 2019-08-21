@@ -41,7 +41,7 @@ class MyStreamListener(tweepy.StreamListener):
 
     def on_status(self, tweet):
 
-        str1="adavasi"
+        str1="adivasi"
 
         ### this bit just means it only retweets main tweets rather than reply tweets or quote tweets
 
