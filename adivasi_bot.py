@@ -1,3 +1,4 @@
+#!/usr/bin/python3.6
 import tweepy
 from tweepy import OAuthHandler,Stream
 from tweepy.streaming import StreamListener
