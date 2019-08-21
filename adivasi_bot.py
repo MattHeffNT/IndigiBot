@@ -46,7 +46,7 @@ class MyStreamListener(tweepy.StreamListener):
 
         ### this bit just means it only retweets main tweets rather than reply tweets or quote tweets
 
-        if hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and str1 in tweet.text:
+         if hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and str1 in tweet.text or str1.isupper in tweet.text or str1.istitle in tweet.text:
                 link= "https://twitter.com/user/status/"+tweet.id_str
                 tweetID= tweet.id_str
                 user= tweet.user.screen_name
