@@ -43,15 +43,19 @@ class MyStreamListener(tweepy.StreamListener):
         notweet= ""
         acceptable= ""
 
-        context_dictionary={" plants"," animals"," reptiles" " species"," herbs"," fruits"," birds"," mammals"," fish"," to", " to "," variety"," flora"," fauna"," British"," Brits","brit","Brit"}
+        context_dictionary={(" plants"," animals"," reptiles" " species"," herbs"," fruits"," birds"," mammals"," fish",
+                             " to", " to "," variety"," flora"," fauna"," British"," Brits","brit","Brit")}
 
-        collocations= {"chandrayaan","Chandrayaan","ISRO","miners kill", "Brazil murder", "indigenously", "indigenous to","indigenous red grape","indigenous grape","Amazon gold miners","indigenous/native plants","indigenous cows","Brazil miners"}
+        collocations= {("chandrayaan","Chandrayaan","ISRO","miners kill", "Brazil murder", "indigenously", 
+                        "indigenous to","indigenous red grape","indigenous grape","Amazon gold miners","indigenous/native plants",
+                        "indigenous cows","Brazil miners")}
 
 
         for i in context_dictionary:
                 acceptable= str1+i
 
-                #if the tweet object has the retweeted_status attribute and isn't a reply to someone (can change this second condition later if we like) then store username in
+                #if the tweet object has the retweeted_status attribute and isn't a reply to someone 
+                #(can change this second condition later if we like) then store username in
                 # variable "user" and the dictionary that's in a list that's in a tuple inside the "url" variable.
 
         for word in collocations:
@@ -61,9 +65,11 @@ class MyStreamListener(tweepy.StreamListener):
                 noTweet=""
 
 
-                #we don't want to capture retweeted tweets for live streamed, this condition also checks for strings in dictionaries above.
+                #we don't want to capture retweeted tweets for live streamed, 
+                #this condition also checks for strings in dictionaries above.
 
-        if hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and str1 in tweet.text and acceptable not in tweet.text and noTweet =="":
+        if (hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and 
+            str1 in tweet.text and acceptable not in tweet.text and noTweet ==""):
 
                 link= "https://twitter.com/user/status/"+tweet.id_str
                 tweetID= tweet.id_str
@@ -86,7 +92,9 @@ class MyStreamListener(tweepy.StreamListener):
 
         # if the tweet has torres straight then retweet them
 
-        elif hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and str3.title() in tweet.text or str3 in tweet.text or str3.upper() in tweet.text or str3.capitalize() in tweet.text:
+        elif (hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and 
+              str3.title() in tweet.text or str3 in tweet.text or str3.upper() in tweet.text or str3.capitalize() in tweet.text):
+            
                 link= "https://twitter.com/user/status/"+tweet.id_str
                 tweetID= tweet.id_str
                 str2= "https://twitter.com/user/status/"
