@@ -50,14 +50,13 @@ class MyStreamListener(tweepy.StreamListener):
                         "indigenous to","indigenous red grape","indigenous grape","Amazon gold miners","indigenous/native plants",
                         "indigenous cows","Brazil miners"})
 
-
+        
+        # loop  to add the word indigenous with collocations to check in the conditional later
         for i in collocations:
                 acceptable= str1+i
+        
 
-                #if the tweet object has the retweeted_status attribute and isn't a reply to someone 
-                #(can change this second condition later if we like) then store username in
-                # variable "user" and the dictionary that's in a list that's in a tuple inside the "url" variable.
-
+        # loop and check for common words and contexts to ignore
         for word in context_dictionary:
             if word in tweet.text:
                     noTweet= word
@@ -70,19 +69,25 @@ class MyStreamListener(tweepy.StreamListener):
 
         if (hasattr(tweet,'retweeted_status')==False and tweet.in_reply_to_screen_name==None and 
             str1 in tweet.text and acceptable not in tweet.text and noTweet ==""):
-
+            
+                #create Twitter link using the ID string attribute (to later save to database).
+                #getting the TweetID attribute will allow the bot to retweet the tweet.
+ 
                 link= "https://twitter.com/user/status/"+tweet.id_str
                 tweetID= tweet.id_str
                 user= tweet.user.screen_name
 
 
-        #if statement "if the word indigenous in the twitter post and bot hasn't already tweeted then execute nested if statement
+  
 
                 str2= "https://twitter.com/user/status/"
+    
+          #if the word indigenous in the twitter post and bot hasn't already tweeted that tweet 
+          #then sleep (to avoid Twitter ban) , retweet the tweet, then store the link to database.
 
                 if link not in lastid and str2 in link:
 
-                #tweet the person with our message then store the tweet id
+                #retweet then store the tweet id
                 # to make sure we aren't duplicating tweets.
 
                                 sleep(60)
@@ -111,6 +116,7 @@ class MyStreamListener(tweepy.StreamListener):
             return False
         # returning non-False reconnects the stream, with backoff.
 
+#start Tweepy functions/class methods
 myStreamListener = MyStreamListener()
 myStream = tweepy.Stream(auth = api.auth, listener=myStreamListener,wait_on_rate_limit=True)
 myStream.filter(track=['indigenous,torres straight'],is_async=True)
