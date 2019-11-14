@@ -51,14 +51,14 @@ class MyStreamListener(tweepy.StreamListener):
                         "indigenous cows","Brazil miners"})
 
 
-        for i in context_dictionary:
+        for i in collocations:
                 acceptable= str1+i
 
                 #if the tweet object has the retweeted_status attribute and isn't a reply to someone 
                 #(can change this second condition later if we like) then store username in
                 # variable "user" and the dictionary that's in a list that's in a tuple inside the "url" variable.
 
-        for word in collocations:
+        for word in context_dictionary:
             if word in tweet.text:
                     noTweet= word
         else:
