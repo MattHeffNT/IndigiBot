@@ -43,12 +43,12 @@ class MyStreamListener(tweepy.StreamListener):
         notweet= ""
         acceptable= ""
 
-        collocations={(" plants"," animals"," reptiles" " species"," herbs"," fruits"," birds"," mammals"," fish",
-                             " to", " to "," variety"," flora"," fauna"," British"," Brits","brit","Brit")}
+        collocations= ({" plants"," animals"," reptiles" " species"," herbs"," fruits"," birds"," mammals"," fish",
+                             " to", " to "," variety"," flora"," fauna"," British"," Brits","brit","Brit"})
 
-        context_dictionary= {("chandrayaan","Chandrayaan","ISRO","miners kill", "Brazil murder", "indigenously", 
+        context_dictionary= ({"chandrayaan","Chandrayaan","ISRO","miners kill", "Brazil murder", "indigenously", 
                         "indigenous to","indigenous red grape","indigenous grape","Amazon gold miners","indigenous/native plants",
-                        "indigenous cows","Brazil miners")}
+                        "indigenous cows","Brazil miners"})
 
 
         for i in context_dictionary:
