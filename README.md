@@ -12,6 +12,7 @@ IndigiBot is currently on hiatus as I add more tweaks and fixes, and hopefully s
 
 TO Dos:
 
+- Need to clean up the code and put some algorithms into functions
 - better collocation filtering
 - proper noun of Aboriginal
 - machine Learning for better sentiment analysis
